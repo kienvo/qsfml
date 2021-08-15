@@ -20,3 +20,29 @@ private:
 	bool initialized;
 };
 #endif //__QSFML__H_
+
+/* example
+
+class canvas: public QSFMLCanvas 
+{
+public:
+	canvas(QWidget* parent, const QPoint& position, const QSize& size) :
+	QSFMLCanvas(parent, position, size) {
+
+	}
+private:
+	void OnInit() {
+		circle.setRadius(5.f);
+		circle.setPosition(10.f, 10.f);
+		circle.setOrigin(circle.getRadius()/2.f, circle.getRadius()/2.f);
+		return;
+	}
+	void OnUpdate() {
+		this->clear();
+		circle.setPosition(circle.getPosition()+sf::Vector2f(1.f, 1.f));
+		this->draw(circle);
+	}
+	sf::CircleShape circle;
+};
+
+*/
