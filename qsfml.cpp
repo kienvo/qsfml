@@ -1,4 +1,4 @@
-#include <qsfml.h>
+#include <qsfml/qsfml.h>
 
 QSFMLCanvas::QSFMLCanvas(QWidget* parent, const QPoint& position, const QSize& size, uint frameTimeMs) :
 QWidget(parent), initialized(false)
