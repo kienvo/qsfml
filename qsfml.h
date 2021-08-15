@@ -38,9 +38,9 @@ private:
 		return;
 	}
 	void OnUpdate() {
-		this->clear();
+		RenderWindow::clear();
 		circle.setPosition(circle.getPosition()+sf::Vector2f(1.f, 1.f));
-		this->draw(circle);
+		RenderWindow::draw(circle);
 	}
 	sf::CircleShape circle;
 };
