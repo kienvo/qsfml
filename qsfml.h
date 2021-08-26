@@ -1,15 +1,27 @@
+/*!
+ * \file    qsfml.h
+ * \brief   A tool for creating frame file using led p10 module
+ * \author  kienvo (kienlab.com)
+ * \version 0.1
+ * \date    Aug-14-2021
+ */
 #ifndef __QSFML__H_
 #define __QSFML__H_
 
 #include <QtWidgets>
 #include <SFML/Graphics.hpp>
 
-class QSFMLCanvas : public QWidget, public sf::RenderWindow
+class QSFML : public QWidget, public sf::RenderWindow
 {
-	Q_OBJECT
+	//Q_OBJECT
 public:
-	QSFMLCanvas(QWidget* parent, const QPoint& position, const QSize& size, uint frameTimeMs = 1000/60) ;
-	virtual ~QSFMLCanvas();
+	QSFML(QWidget* parent, const QPoint& position, uint frameTimeMs = 1000/60) ;
+	QSFML(QWidget* parent, const QPoint& position, const QSize& size, uint frameTimeMs = 1000/60):
+	QSFML(parent, position, frameTimeMs)
+	{
+		QWidget::resize(size);
+	}
+	virtual ~QSFML();
 private:
 	virtual void OnInit() =0; // implement this function doing stuff on initialize
 	virtual void OnUpdate() =0; // SFML code
@@ -19,15 +31,16 @@ private:
 	QTimer refreshTimer;
 	bool initialized;
 };
+
 #endif //__QSFML__H_
 
 /* example
 
-class canvas: public QSFMLCanvas 
+class canvas: public QSFML
 {
 public:
 	canvas(QWidget* parent, const QPoint& position, const QSize& size) :
-	QSFMLCanvas(parent, position, size) {
+	QSFML(parent, position, size) {
 
 	}
 private:

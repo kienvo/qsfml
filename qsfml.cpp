@@ -1,6 +1,13 @@
+/*!
+ * \file    qsfml.cpp
+ * \brief   A tool for creating frame file using led p10 module
+ * \author  kienvo (kienlab.com)
+ * \version 0.1
+ * \date    Aug-14-2021
+ */
 #include <qsfml/qsfml.h>
 
-QSFMLCanvas::QSFMLCanvas(QWidget* parent, const QPoint& position, const QSize& size, uint frameTimeMs) :
+QSFML::QSFML(QWidget* parent, const QPoint& position, uint frameTimeMs) :
 QWidget(parent), initialized(false)
 {
 	QWidget::setAttribute(Qt::WA_PaintOnScreen);
@@ -9,31 +16,34 @@ QWidget(parent), initialized(false)
 
 	QWidget::setFocusPolicy(Qt::StrongFocus);
 	QWidget::move(position);
-	QWidget::resize(size);
 
 	refreshTimer.setInterval(frameTimeMs);
 }
-QSFMLCanvas::~QSFMLCanvas() {
+
+
+QSFML::~QSFML() {
 
 }
 
-QPaintEngine* QSFMLCanvas::paintEngine() const {
+QPaintEngine* QSFML::paintEngine() const {
 	return 0;
 }
 
 // Will be called after QWidget::show() and window restore
-void QSFMLCanvas::showEvent(QShowEvent*) {
+void QSFML::showEvent(QShowEvent*) {
 	if(!initialized) { // ignore window restore
 		RenderWindow::create(QWidget::winId());
 		
 		OnInit();
-		QWidget::connect(&refreshTimer, SIGNAL(timeout()),this, SLOT(repaint()));
+		// C++11 lambda
+		// https://stackoverflow.com/questions/7627098/what-is-a-lambda-expression-in-c11
+		QWidget::connect(&refreshTimer, &QTimer::timeout, [=](){this->repaint();});
 		refreshTimer.start();
 
 		initialized = true;
 	}
 }
-void QSFMLCanvas::paintEvent(QPaintEvent*) {
+void QSFML::paintEvent(QPaintEvent*) {
 	OnUpdate();
 	// Just like window.display() in while loop main
 	RenderWindow::display();
