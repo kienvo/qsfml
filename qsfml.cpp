@@ -44,7 +44,6 @@ void QSFML::showEvent(QShowEvent*) {
 	}
 }
 void QSFML::paintEvent(QPaintEvent*) {
-	OnUpdate();
-	// Just like window.display() in while loop main
-	RenderWindow::display();
+	OnUpdate(); 
+	// RenderWindow::display() should be call in OnUpdate function
 }
