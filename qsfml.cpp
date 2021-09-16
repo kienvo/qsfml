@@ -45,5 +45,5 @@ void QSFML::showEvent(QShowEvent*) {
 }
 void QSFML::paintEvent(QPaintEvent*) {
 	OnUpdate(); 
-	// RenderWindow::display() should be call in OnUpdate function
+	// RenderWindow::display() should be call once in OnUpdate function
 }
